@@ -23,6 +23,7 @@ use App\Http\Controllers\InstamojoController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\PublicSslCommerzPaymentController;
 use App\Township;
+use Mockery\Undefined;
 
 class CheckoutController extends Controller
 {
@@ -209,14 +210,14 @@ class CheckoutController extends Controller
         if (Session::has('cart') && count(Session::get('cart')) > 0) {
             $categories = Category::all();
             // $townships = Township::all();
-            // $townships = \App\Township::where('delivery_price','>', 100)->first();
+            $townships = \App\Township::where('delivery_price','>', 100)->get();
 
             
             // for($i=0;$i<count($townships);$i++){
             //     $townships[$i] = $townships->name;
             // }
 
-            return view('frontend.shipping_info', compact('categories'));
+            return view('frontend.shipping_info', compact('categories','townships'));
         }
         flash(translate('Your cart is empty'))->success();
         return back();
@@ -234,6 +235,7 @@ class CheckoutController extends Controller
             $data['email'] = Auth::user()->email;
             $data['address'] = $address->address;
             $data['country'] = $address->country;
+            $data['township_name'] = $address->township_name;
             $data['city'] = $address->city;
             $data['postal_code'] = $address->postal_code;
             $data['phone'] = $address->phone;
@@ -243,6 +245,7 @@ class CheckoutController extends Controller
             $data['email'] = $request->email;
             $data['address'] = $request->address;
             $data['country'] = $request->country;
+            $data['township_name'] = $request->township;
             $data['city'] = $request->city;
             $data['postal_code'] = $request->postal_code;
             $data['phone'] = $request->phone;
@@ -305,19 +308,34 @@ class CheckoutController extends Controller
             $subtotal = 0;
             $tax = 0;
             $shipping = 0;
+            $delivery = 1000;
             foreach (Session::get('cart') as $key => $cartItem) {
                 $subtotal += $cartItem['price'] * $cartItem['quantity'];
                 $tax += $cartItem['tax'] * $cartItem['quantity'];
                 $shipping += $cartItem['shipping'] * $cartItem['quantity'];
             }
+            $townships = Township::all();
+            foreach($townships as $township){
+                foreach (Auth::user()->addresses as $key => $address){
+                    if ($township->name === $address->township_name) {
+                    $delivery = $township->delivery_price;
+}
 
-            $total = $subtotal + $tax + $shipping;
+                }
+                
+                 
+            }
+            // if($delivery){
+            //     $delivery += 1000;
+            // }
+
+            $total = $subtotal + $tax + $shipping + $delivery;
 
             if (Session::has('coupon_discount')) {
                 $total -= Session::get('coupon_discount');
             }
 
-            return view('frontend.payment_select', compact('total'));
+            return view('frontend.payment_select', compact('total','delivery'));
         } else {
             flash(translate('Your Cart was empty'))->warning();
             return redirect()->route('home');

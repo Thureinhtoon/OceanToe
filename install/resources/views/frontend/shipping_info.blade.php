@@ -74,10 +74,16 @@
                                                         <span class="fw-600 ml-2">{{ $address->city }}</span>
                                                     </div>
                                                   
-                                                    {{-- <div>
+                                                    <div>
                                                         <span class="opacity-60">{{ translate('Township') }}:</span>
-                                                       <a class="fw-600 ml-2" >{{ $townships->name }}</a>
-                                                    </div> --}}
+                                                         <span class="fw-600 ml-2">{{ $address->township_name }}</span>
+                                                         {{-- @foreach (\App\Township::where('delivery_price','>' ,1)->get() as $key => $township)
+                                                        
+                                                     <a class="fw-600 ml-2" >{{ $township->name }}</a>
+                                                    
+                                                    @endforeach --}}
+                                                    </div>
+                                                      
                                                    
                                                     <div>
                                                         <span class="opacity-60">{{ translate('Country') }}:</span>
@@ -142,7 +148,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group has-feedback">
                                             <label class="control-label">{{ translate('Select Township')}}</label>
-                                            <input type="text" class="form-control" placeholder="{{ translate('Select Township')}}" name="township_id" required>
+                                            <input type="text" class="form-control" placeholder="{{ translate('Select Township')}}" name="township_name" value="{{$township->name}}" required>
                                         </div>
                                     </div> --}}
                                 {{-- End Township --}}
@@ -230,7 +236,7 @@
                                 <label>{{ translate('Township')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="township_id" required>
+                                <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="township" required>
                                     @foreach (\App\Township::where('delivery_price','>', 100)->get() as $key => $township)
                                         <option value="{{ $township->name }}">{{ $township->name }}</option>
                                     @endforeach

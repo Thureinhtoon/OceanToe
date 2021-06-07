@@ -48,7 +48,7 @@ class AddressController extends Controller
         $address->address = $request->address;
         $address->country = $request->country;
         $address->city = $request->city;
-        // $address->township_name = $request->township_id;
+        $address->township_name = $request->township;
         $address->postal_code = $request->postal_code;
         $address->phone = $request->phone;
         $address->save();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2021 at 08:05 AM
+-- Generation Time: Jun 05, 2021 at 04:53 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fuck`
+-- Database: `ecommerce_demo`
 --
 
 -- --------------------------------------------------------
@@ -63,13 +63,9 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`id`, `user_id`, `address`, `country`, `city`, `postal_code`, `phone`, `set_default`, `created_at`, `updated_at`, `township_name`) VALUES
-(1, 9, 'lr', 'Afghanistan', 'Yangon', '9999', '977869495', 0, '2021-03-02 02:48:51', '2021-03-02 02:48:51', NULL),
-(2, 8, 'lr', 'Afghanistan', 'Yangon', '9999', '977869495', 0, '2021-03-09 01:35:46', '2021-03-09 01:35:46', NULL),
-(3, 9, 'lr', 'Afghanistan', 'Yangon', '9999', '977869495', 0, '2021-03-16 21:50:31', '2021-03-16 21:50:31', 'Kamaryut'),
-(4, 9, 'lr', 'Afghanistan', 'Yangon', '9999', '977869495', 0, '2021-03-16 21:50:47', '2021-03-16 21:50:47', 'Thingunkyun'),
-(5, 9, 'koko', 'Albania', 'Yangon', '9999', '9778694956', 0, '2021-03-16 21:59:32', '2021-03-16 21:59:32', 'Yangon'),
-(6, 9, 'mgmg', 'Afghanistan', 'Yangon', '9999', '9776127637', 0, '2021-03-17 04:26:06', '2021-03-17 04:26:06', 'Hlaing'),
-(7, 9, 'ka', 'Afghanistan', 'Yangon', '9999', '977869495', 0, '2021-03-17 04:30:31', '2021-03-17 04:30:31', 'Yangon');
+(1, 8, 'Yangon', 'American Samoa', 'Yangon', '9999', '123456', 0, '2021-01-02 05:25:32', '2021-01-02 05:25:32', NULL),
+(2, 11, 'yangon', 'Afghanistan', 'Yangon', '5555', '123456', 0, '2021-01-02 05:41:03', '2021-01-02 05:41:03', NULL),
+(3, 9, 'Yangon', 'Myanmar', 'Yangon', '9999', '09776127637', 0, '2021-01-08 07:57:17', '2021-01-08 07:57:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -187,7 +183,7 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `logo`, `top`, `slug`, `meta_title`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, 'Demo brand', 'uploads/brands/brand.jpg', 1, 'Demo-brand-12', 'Demo brand', NULL, '2019-03-12 06:05:56', '2019-08-06 06:52:40'),
+(1, 'Demo brand', '3', 1, 'demo-brand-12', 'Demo brand', NULL, '2019-03-12 06:05:56', '2021-01-02 00:44:49'),
 (2, 'Demo brand1', 'uploads/brands/brand.jpg', 1, 'Demo-brand1', 'Demo brand1', NULL, '2019-03-12 06:06:13', '2019-08-06 06:07:26');
 
 -- --------------------------------------------------------
@@ -204,6 +200,13 @@ CREATE TABLE `brand_translations` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `brand_translations`
+--
+
+INSERT INTO `brand_translations` (`id`, `brand_id`, `name`, `lang`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Demo brand', 'en', '2021-01-02 00:44:49', '2021-01-02 00:44:49');
 
 -- --------------------------------------------------------
 
@@ -267,7 +270,7 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 (53, 'facebook_pixel', '0', '2020-01-22 11:43:58', '2020-01-22 11:43:58'),
 (55, 'classified_product', '0', '2020-05-13 13:01:05', '2020-05-13 13:01:05'),
 (56, 'pos_activation_for_seller', '1', '2020-06-11 09:45:02', '2020-06-11 09:45:02'),
-(57, 'shipping_type', 'product_wise_shipping', '2020-07-01 13:49:56', '2020-07-01 13:49:56'),
+(57, 'shipping_type', 'delivery', '2020-07-01 13:49:56', '2021-01-20 02:27:48'),
 (58, 'flat_rate_shipping_cost', '0', '2020-07-01 13:49:56', '2020-07-01 13:49:56'),
 (59, 'shipping_cost_admin', '0', '2020-07-01 13:49:56', '2020-07-01 13:49:56'),
 (60, 'payhere_sandbox', '0', '2020-07-30 18:23:53', '2020-07-30 18:23:53'),
@@ -279,14 +282,14 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 (66, 'show_currency_switcher', 'on', '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (67, 'header_stikcy', 'on', '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (68, 'footer_logo', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
-(69, 'about_us_description', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
+(69, 'about_us_description', NULL, '2020-11-16 07:26:36', '2021-01-13 09:48:56'),
 (70, 'contact_address', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (71, 'contact_phone', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (72, 'contact_email', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (73, 'widget_one_labels', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (74, 'widget_one_links', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (75, 'widget_one', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
-(76, 'frontend_copyright_text', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
+(76, 'frontend_copyright_text', ' @copy; 2021 All Right Reserved!', '2020-11-16 07:26:36', '2021-01-13 09:49:03'),
 (77, 'show_social_links', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (78, 'facebook_link', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (79, 'twitter_link', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
@@ -313,12 +316,15 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 (100, 'meta_keywords', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (101, 'meta_image', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (102, 'site_name', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
-(103, 'system_logo_white', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
-(104, 'system_logo_black', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
+(103, 'system_logo_white', '9', '2020-11-16 07:26:36', '2021-01-05 01:15:09'),
+(104, 'system_logo_black', '10', '2020-11-16 07:26:36', '2021-01-05 01:15:10'),
 (105, 'timezone', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (106, 'admin_login_background', NULL, '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
 (107, 'payfast', '0', '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
-(108, 'payfast_sandbox', '1', '2020-11-16 07:26:36', '2020-11-16 07:26:36');
+(108, 'payfast_sandbox', '1', '2020-11-16 07:26:36', '2020-11-16 07:26:36'),
+(109, 'payfast_sandbox', '1', '2021-01-02 06:10:05', '2021-01-02 06:10:05'),
+(110, 'payfast', '1', '2021-01-02 06:10:05', '2021-01-02 06:10:05'),
+(111, 'shipping_type', 'delivery', '2021-01-20 07:43:14', '2021-01-20 07:43:14');
 
 -- --------------------------------------------------------
 
@@ -368,9 +374,11 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `parent_id`, `level`, `name`, `commision_rate`, `banner`, `icon`, `featured`, `top`, `digital`, `slug`, `meta_title`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, 0, 0, 'Demo category 1', 0.00, 'uploads/categories/banner/category-banner.jpg', 'uploads/categories/icon/KjJP9wuEZNL184XVUk3S7EiZ8NnBN99kiU4wdvp3.png', 1, 1, 0, 'Demo-category-1', 'Demo category 1', NULL, '2019-08-06 12:06:58', '2019-08-06 06:06:58'),
-(2, 0, 0, 'Demo category 2', 0.00, 'uploads/categories/banner/category-banner.jpg', 'uploads/categories/icon/h9XhWwI401u6sRoLITEk9SUMRAlWN8moGrpPfS6I.png', 1, 0, 0, 'Demo-category-2', 'Demo category 2', NULL, '2019-08-06 12:06:58', '2019-08-06 06:06:58'),
-(3, 0, 0, 'Demo category 3', 0.00, 'uploads/categories/banner/category-banner.jpg', 'uploads/categories/icon/rKAPw5rNlS84JtD9ZQqn366jwE11qyJqbzAe5yaA.png', 1, 1, 0, 'Demo-category-3', 'Demo category 3', NULL, '2019-08-06 12:06:58', '2019-08-06 06:06:58');
+(1, 0, 0, 'Demo category 1', 0.00, '2', '9', 1, 1, 0, 'demo-category-1', 'Demo category 1', NULL, '2021-01-11 14:01:15', '2021-01-11 07:31:15'),
+(2, 0, 0, 'Demo category 2', 0.00, '3', '9', 1, 0, 0, 'demo-category-2', 'Demo category 2', NULL, '2021-01-11 14:01:39', '2021-01-11 07:31:39'),
+(3, 0, 0, 'Demo category 3', 0.00, '4', '9', 1, 1, 0, 'demo-category-3', 'Demo category 3', NULL, '2021-01-11 14:02:05', '2021-01-11 07:32:05'),
+(4, 0, 0, 'Demo Category 4', 0.00, '10', '9', 1, 0, 0, 'Demo-Category-4-1PGW1', NULL, NULL, '2021-01-12 04:13:32', '2021-01-11 21:43:32'),
+(5, 0, 0, 'Demo Category 5', 0.00, '8', '9', 1, 0, 0, 'Demo-Category-5-khC6m', NULL, NULL, '2021-01-12 04:13:34', '2021-01-11 21:43:34');
 
 -- --------------------------------------------------------
 
@@ -386,6 +394,17 @@ CREATE TABLE `category_translations` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `category_translations`
+--
+
+INSERT INTO `category_translations` (`id`, `category_id`, `name`, `lang`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Demo category 1', 'en', '2021-01-02 00:28:30', '2021-01-02 00:28:30'),
+(2, 2, 'Demo category 2', 'en', '2021-01-02 00:29:31', '2021-01-02 00:29:31'),
+(3, 3, 'Demo category 3', 'en', '2021-01-02 00:30:00', '2021-01-02 00:30:00'),
+(4, 4, 'Demo Category 4', 'en', '2021-01-11 07:33:04', '2021-01-11 07:33:04'),
+(5, 5, 'Demo Category 5', 'en', '2021-01-11 07:33:33', '2021-01-11 07:33:33');
 
 -- --------------------------------------------------------
 
@@ -913,7 +932,8 @@ INSERT INTO `currencies` (`id`, `name`, `symbol`, `exchange_rate`, `status`, `co
 (24, 'Swiss Franc', 'CHF', 0.94000, 1, 'CHF', '2018-10-09 11:35:08', '2018-10-09 11:35:08'),
 (26, 'Thai Baht', '฿', 31.39000, 1, 'THB', '2018-10-09 11:35:08', '2018-10-09 11:35:08'),
 (27, 'Taka', '৳', 84.00000, 1, 'BDT', '2018-10-09 11:35:08', '2018-12-02 05:16:13'),
-(28, 'Indian Rupee', 'Rs', 68.45000, 1, 'Rupee', '2019-07-07 10:33:46', '2019-07-07 10:33:46');
+(28, 'Indian Rupee', 'Rs', 68.45000, 1, 'Rupee', '2019-07-07 10:33:46', '2019-07-07 10:33:46'),
+(29, 'Myanmar ', 'MMK', 1328.24000, 1, 'MMK', '2021-01-04 13:36:31', '2021-01-04 13:36:31');
 
 -- --------------------------------------------------------
 
@@ -933,8 +953,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
-(4, 8, '2019-08-01 10:35:09', '2019-08-01 10:35:09'),
-(5, 9, '2021-03-02 02:31:09', '2021-03-02 02:31:09');
+(5, 11, '2021-01-02 05:39:02', '2021-01-02 05:39:02'),
+(6, 1, '2021-02-26 10:38:30', '2021-02-26 10:38:30');
 
 -- --------------------------------------------------------
 
@@ -1172,7 +1192,8 @@ CREATE TABLE `languages` (
 INSERT INTO `languages` (`id`, `name`, `code`, `rtl`, `created_at`, `updated_at`) VALUES
 (1, 'English', 'en', 0, '2019-01-20 12:13:20', '2019-01-20 12:13:20'),
 (3, 'Bangla', 'bd', 0, '2019-02-17 06:35:37', '2019-02-18 06:49:51'),
-(4, 'Arabic', 'sa', 1, '2019-04-28 18:34:12', '2019-04-28 18:34:12');
+(4, 'Arabic', 'sa', 0, '2019-04-28 18:34:12', '2019-04-28 18:34:12'),
+(6, 'Myanmar', 'mm', 0, '2021-01-04 16:04:19', '2021-01-04 16:04:19');
 
 -- --------------------------------------------------------
 
@@ -1220,8 +1241,8 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1);
+(7, '2014_10_12_000000_create_users_table', 1),
+(8, '2014_10_12_100000_create_password_resets_table', 1);
 
 -- --------------------------------------------------------
 
@@ -1371,18 +1392,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `guest_id`, `shipping_address`, `payment_type`, `payment_status`, `payment_details`, `grand_total`, `coupon_discount`, `code`, `date`, `viewed`, `delivery_viewed`, `payment_status_viewed`, `commission_calculated`, `created_at`, `updated_at`) VALUES
-(1, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 6000.00, 0.00, '20210302-09190162', 1614676741, 0, 0, 0, 1, '2021-03-02 02:49:01', '2021-03-02 02:49:17'),
-(2, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 5000.00, 0.00, '20210302-14395281', 1614695992, 0, 0, 0, 1, '2021-03-02 08:09:52', '2021-03-02 08:13:45'),
-(3, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 11000.00, 0.00, '20210302-14401981', 1614696019, 0, 0, 0, 1, '2021-03-02 08:10:19', '2021-03-02 08:13:38'),
-(4, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 12000.00, 0.00, '20210302-14545055', 1614696890, 0, 0, 0, 1, '2021-03-02 08:24:50', '2021-03-02 08:25:02'),
-(5, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 10000.00, 0.00, '20210302-15024861', 1614697368, 0, 0, 0, 1, '2021-03-02 08:32:48', '2021-03-02 08:33:03'),
-(6, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 16500.00, 0.00, '20210302-15400484', 1614699604, 0, 0, 0, 1, '2021-03-02 09:10:04', '2021-03-02 09:10:19'),
-(7, 8, NULL, '{\"name\":\"Mr. Customer\",\"email\":\"customer@example.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 6000.00, 0.00, '20210309-08060041', 1615277160, 1, 0, 0, 1, '2021-03-09 01:36:00', '2021-03-09 01:37:10'),
-(8, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 6000.00, 0.00, '20210312-06230628', 1615530186, 0, 0, 0, 1, '2021-03-11 23:53:06', '2021-03-11 23:53:50'),
-(9, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"lr\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"977869495\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 5500.00, 0.00, '20210317-04215165', 1615954911, 0, 0, 0, 0, '2021-03-16 21:51:51', '2021-03-16 21:51:51'),
-(10, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"koko\",\"country\":\"Albania\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"9778694956\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 5000.00, 0.00, '20210317-04294836', 1615955388, 0, 0, 0, 0, '2021-03-16 21:59:48', '2021-03-16 21:59:48'),
-(11, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"mgmg\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"9776127637\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 5000.00, 0.00, '20210317-10564221', 1615978602, 1, 0, 0, 0, '2021-03-17 04:26:42', '2021-03-17 04:27:57'),
-(12, 9, NULL, '{\"name\":\"Thu Rein Htoon\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"mgmg\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"9776127637\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'paid', NULL, 5000.00, 0.00, '20210601-06014869', 1622527308, 1, 0, 0, 1, '2021-05-31 23:31:48', '2021-05-31 23:34:02');
+(1, 8, NULL, '{\"name\":\"Mr. Customer\",\"email\":\"customer@example.com\",\"address\":\"Yangon\",\"country\":\"American Samoa\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"123456\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 1700.00, 0.00, '20210102-11561078', 1609588570, 1, 0, 0, 0, '2021-01-02 05:26:10', '2021-01-08 07:41:02'),
+(2, 11, NULL, '{\"name\":\"koko1\",\"email\":\"koko@gmail.com\",\"address\":\"yangon\",\"country\":\"Afghanistan\",\"city\":\"Yangon\",\"postal_code\":\"5555\",\"phone\":\"123456\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 11130.00, 0.00, '20210102-12113710', 1609589497, 1, 0, 1, 0, '2021-01-02 05:41:37', '2021-01-04 23:23:01'),
+(3, 9, NULL, '{\"name\":\"Ko Thu\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"Yangon\",\"country\":\"Myanmar\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"09776127637\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 9.00, 0.00, '20210108-14274586', 1610116065, 1, 0, 0, 0, '2021-01-08 07:57:45', '2021-01-10 08:00:38'),
+(4, 9, NULL, '{\"name\":\"Ko Thu\",\"email\":\"thureinhtun2499@gmail.com\",\"address\":\"Yangon\",\"country\":\"Myanmar\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"09776127637\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 19.00, 0.00, '20210113-16362341', 1610555783, 1, 0, 0, 0, '2021-01-13 10:06:23', '2021-01-14 22:47:44'),
+(5, 8, NULL, '{\"name\":\"Mr. Customer\",\"email\":\"customer@example.com\",\"address\":\"Yangon\",\"country\":\"American Samoa\",\"city\":\"Yangon\",\"postal_code\":\"9999\",\"phone\":\"123456\",\"checkout_type\":\"logged\"}', 'cash_on_delivery', 'unpaid', NULL, 19.00, 0.00, '20210118-04004811', 1610942448, 0, 0, 0, 0, '2021-01-17 21:30:48', '2021-01-17 21:30:49');
 
 -- --------------------------------------------------------
 
@@ -1414,18 +1428,11 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `seller_id`, `product_id`, `variation`, `price`, `tax`, `shipping_cost`, `quantity`, `payment_status`, `delivery_status`, `shipping_type`, `pickup_point_id`, `product_referral_code`, `created_at`, `updated_at`) VALUES
-(1, 1, 9, 5, '', 6000.00, 0.00, 0.00, 1, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-02 02:49:02', '2021-03-02 02:49:17'),
-(2, 2, 9, 3, '', 5000.00, 0.00, 0.00, 1, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-02 08:09:53', '2021-03-02 08:13:45'),
-(3, 3, 9, 4, '', 11000.00, 0.00, 0.00, 2, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-02 08:10:20', '2021-03-02 08:13:38'),
-(4, 4, 9, 5, '', 12000.00, 0.00, 0.00, 2, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-02 08:24:50', '2021-03-02 08:25:02'),
-(5, 5, 9, 3, '', 10000.00, 0.00, 0.00, 2, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-02 08:32:48', '2021-03-02 08:33:03'),
-(6, 6, 9, 4, '', 5500.00, 0.00, 0.00, 3, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-02 09:10:04', '2021-03-02 09:10:19'),
-(7, 7, 9, 5, '', 6000.00, 0.00, 0.00, 1, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-09 01:36:01', '2021-03-09 01:37:09'),
-(8, 8, 9, 5, '', 6000.00, 0.00, 0.00, 1, 'paid', 'pending', 'home_delivery', NULL, NULL, '2021-03-11 23:53:07', '2021-03-11 23:53:49'),
-(9, 9, 9, 4, '', 5500.00, 0.00, 0.00, 1, 'unpaid', 'pending', 'home_delivery', NULL, NULL, '2021-03-16 21:51:51', '2021-03-16 21:51:51'),
-(10, 10, 9, 3, '', 5000.00, 0.00, 0.00, 1, 'unpaid', 'pending', 'home_delivery', NULL, NULL, '2021-03-16 21:59:48', '2021-03-16 21:59:48'),
-(11, 11, 9, 3, '', 5000.00, 0.00, 0.00, 1, 'unpaid', 'pending', 'home_delivery', NULL, NULL, '2021-03-17 04:26:42', '2021-03-17 04:26:42'),
-(12, 12, 9, 3, '', 5000.00, 0.00, 0.00, 1, 'paid', 'confirmed', 'home_delivery', NULL, NULL, '2021-05-31 23:31:49', '2021-05-31 23:34:05');
+(1, 1, 8, 1, '', 1450.00, 150.00, 100.00, 1, 'unpaid', 'pending', 'home_delivery', NULL, NULL, '2021-01-02 05:26:11', '2021-01-02 05:26:11'),
+(2, 2, 3, 2, 'AliceBlue-12', 10430.00, 700.00, 0.00, 7, 'unpaid', 'confirmed', 'home_delivery', NULL, NULL, '2021-01-02 05:41:38', '2021-01-04 23:12:41'),
+(3, 3, 9, 4, '', 7.00, 2.00, 0.00, 1, 'unpaid', 'pending', 'home_delivery', NULL, NULL, '2021-01-08 07:57:45', '2021-01-08 07:57:45'),
+(4, 4, 9, 7, 'Amethyst', 9.00, 10.00, 0.00, 1, 'unpaid', 'pending', 'home_delivery', NULL, NULL, '2021-01-13 10:06:23', '2021-01-13 10:06:23'),
+(5, 5, 9, 6, '', 9.00, 10.00, 0.00, 1, 'unpaid', 'pending', 'home_delivery', NULL, NULL, '2021-01-17 21:30:48', '2021-01-17 21:30:48');
 
 -- --------------------------------------------------------
 
@@ -1482,10 +1489,10 @@ CREATE TABLE `page_translations` (
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1623,9 +1630,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `added_by`, `user_id`, `category_id`, `subcategory_id`, `subsubcategory_id`, `brand_id`, `photos`, `thumbnail_img`, `video_provider`, `video_link`, `tags`, `description`, `unit_price`, `purchase_price`, `variant_product`, `attributes`, `choice_options`, `colors`, `variations`, `todays_deal`, `published`, `featured`, `current_stock`, `unit`, `min_qty`, `discount`, `discount_type`, `tax`, `tax_type`, `shipping_type`, `shipping_cost`, `num_of_sale`, `meta_title`, `meta_description`, `meta_img`, `pdf`, `slug`, `rating`, `barcode`, `digital`, `file_name`, `file_path`, `created_at`, `updated_at`) VALUES
-(3, 'Shirt1', 'admin', 9, 1, NULL, NULL, 1, '1', '1', 'youtube', NULL, 'shirt', NULL, 5000.00, 0.00, 0, '[]', '[]', '[]', NULL, 0, 1, 1, 4, 'pc', 1, 0.00, 'amount', 0.00, 'amount', 'flat_rate', 0.00, 5, 'Shirt1', NULL, NULL, NULL, 'Shirt1-zT3mI', 0.00, NULL, 0, NULL, NULL, '2021-03-02 02:33:21', '2021-05-31 23:31:49'),
-(4, 'Shirt2', 'admin', 9, 2, NULL, NULL, 2, '2', '2', 'youtube', NULL, 'shirt', NULL, 5500.00, 0.00, 0, '[]', '[]', '[]', NULL, 0, 1, 1, 4, 'pc', 1, 0.00, 'amount', 0.00, 'amount', 'flat_rate', 0.00, 3, 'Shirt2', NULL, NULL, NULL, 'Shirt2-kKQQk', 0.00, NULL, 0, NULL, NULL, '2021-03-02 02:35:26', '2021-03-16 21:51:51'),
-(5, 'Shirt3', 'admin', 9, 3, NULL, NULL, 1, '7', '7', 'youtube', NULL, 'shirt', NULL, 6000.00, 0.00, 0, '[]', '[]', '[]', NULL, 0, 1, 1, 0, 'pc', 1, 0.00, 'amount', 0.00, 'amount', 'flat_rate', 0.00, 4, 'Shirt3', NULL, NULL, NULL, 'Shirt3-u1K4E', 0.00, NULL, 0, NULL, NULL, '2021-03-02 02:36:15', '2021-03-11 23:53:07');
+(1, 'Coffee', 'seller', 8, 1, NULL, NULL, 1, '6', '6', 'youtube', NULL, 'coffee', '<p>Amacianno Cafe</p>', 15.00, 10.00, 0, '[]', '[]', '[]', NULL, 1, 1, 1, 0, 'KG', 1, 2.00, 'amount', 1.00, 'amount', 'flat_rate', 100.00, 4, 'Coffee', '<p>Amacianno Cafe</p>', '6', NULL, 'coffee-5nvsm', 0.00, NULL, 0, NULL, NULL, '2021-01-02 00:22:05', '2021-01-04 23:14:38'),
+(2, 'Watch', 'seller', 3, 2, NULL, NULL, 1, '7', '7', 'youtube', NULL, 'luxary watches', '<p style=\"text-align: left;\">This luxury watches are for you guys.</p>', 15.00, 15.00, 10, '[\"1\"]', '[{\"attribute_id\":\"1\",\"values\":[\"12\"]}]', '[\"#F0F8FF\"]', NULL, 0, 1, 1, 0, 'KG', 7, 2.00, 'amount', 1.00, 'amount', 'free', 0.00, 1, 'watches', 'Rolax Watches', NULL, NULL, 'Watch-TP2wv', 0.00, NULL, 0, NULL, NULL, '2021-01-02 05:34:03', '2021-01-02 05:41:38'),
+(3, 'Watch', 'seller', 3, 2, NULL, NULL, 1, '8', '8', 'youtube', NULL, 'luxary watches', '<p style=\"text-align: left;\">This luxury watches are for you guys.</p>', 15.00, 10.00, 0, '[]', '[]', '[]', NULL, 0, 1, 1, 0, 'KG', 7, 3.00, 'amount', 1.00, 'amount', 'free', 0.00, 0, 'watches', 'Rolax Watches', '7', NULL, 'watch-xdwkj', 0.00, NULL, 0, NULL, NULL, '2021-01-02 05:34:29', '2021-01-04 23:15:29'),
+(4, 'Cake', 'admin', 9, 4, NULL, NULL, 1, '6', '6', 'youtube', NULL, 'cafe', '<p>This is cafe</p>', 10.00, 10.00, 0, '[]', '[]', '[]', NULL, 1, 1, 1, 9, 'KG', 1, 3.00, 'amount', 2.00, 'amount', 'free', 0.00, 1, 'cafe', 'cafe', '6', NULL, 'cake-4kvjt', 0.00, NULL, 0, NULL, NULL, '2021-01-03 01:22:14', '2021-01-11 21:38:30'),
+(5, 'Pizza', 'admin', 9, 3, NULL, NULL, 1, '3', '3', 'youtube', NULL, 'pizza', '<p>Pizza is one of the best food</p>', 10.00, 10.00, 0, '[]', '[]', '[]', NULL, 0, 1, 1, 10, 'KG', 1, 0.98, 'amount', 1.99, 'amount', 'flat_rate', 3.00, 0, 'pizza', 'one of the best food in the world', '3', NULL, 'Pizza-F483J', 0.00, NULL, 0, NULL, NULL, '2021-01-04 19:04:24', '2021-01-10 07:45:07'),
+(6, 'Shirt', 'admin', 9, 4, NULL, NULL, 1, '4', '6', 'youtube', NULL, 'shirt', NULL, 10.00, 11.00, 0, '[]', '[]', '[]', NULL, 0, 1, 1, 9, 'KG', 1, 1.00, 'amount', 10.00, 'amount', 'flat_rate', 0.00, 1, 'Shirt', NULL, '4', NULL, 'shirt-5gcr2', 0.00, NULL, 0, NULL, NULL, '2021-01-10 07:46:29', '2021-01-17 21:30:49'),
+(7, 'Shirtttty', 'admin', 9, 1, NULL, NULL, 1, '4,6,3', '4', 'youtube', NULL, 'shirt', NULL, 10.00, 11.00, 1, '[]', '[]', '[\"#F0F8FF\",\"#9966CC\",\"#FAEBD7\"]', NULL, 0, 1, 1, 10, 'KG', 1, 1.00, 'amount', 10.00, 'amount', 'flat_rate', 0.00, 1, 'Shirt', NULL, '4,6,3', NULL, 'shirt-wkwke', 0.00, NULL, 0, NULL, NULL, '2021-01-11 07:01:44', '2021-01-13 10:06:23');
 
 -- --------------------------------------------------------
 
@@ -1649,10 +1660,15 @@ CREATE TABLE `product_stocks` (
 --
 
 INSERT INTO `product_stocks` (`id`, `product_id`, `variant`, `sku`, `price`, `qty`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, NULL, 5000.00, 10, '2021-03-02 02:33:07', '2021-03-02 02:33:07'),
-(2, 2, NULL, NULL, 5000.00, 10, '2021-03-02 02:34:01', '2021-03-02 02:34:01'),
-(3, 4, NULL, NULL, 5500.00, 10, '2021-03-02 02:35:26', '2021-03-02 02:35:26'),
-(4, 5, NULL, NULL, 6000.00, 5, '2021-03-02 02:36:15', '2021-03-02 02:36:15');
+(7, 2, 'AliceBlue-12', NULL, 1500.00, 3, '2021-01-02 05:34:06', '2021-01-02 05:41:38'),
+(10, 5, NULL, NULL, 10.00, 10, '2021-01-04 19:04:24', '2021-01-04 19:04:24'),
+(11, 1, NULL, NULL, 15.00, 0, '2021-01-04 23:14:38', '2021-01-04 23:14:38'),
+(12, 3, NULL, NULL, 15.00, 0, '2021-01-04 23:15:29', '2021-01-04 23:15:29'),
+(23, 7, 'AliceBlue', 'AliceBlue', 10.00, 10, '2021-01-11 07:06:54', '2021-01-11 07:06:54'),
+(24, 7, 'Amethyst', 'Amethyst', 10.00, 9, '2021-01-11 07:06:54', '2021-01-13 10:06:23'),
+(25, 7, 'AntiqueWhite', 'AntiqueWhite', 10.00, 10, '2021-01-11 07:06:54', '2021-01-11 07:06:54'),
+(26, 6, NULL, NULL, 10.00, 10, '2021-01-11 21:36:59', '2021-01-11 21:36:59'),
+(27, 4, NULL, NULL, 10.00, 9, '2021-01-11 21:38:30', '2021-01-11 21:38:30');
 
 -- --------------------------------------------------------
 
@@ -1676,8 +1692,13 @@ CREATE TABLE `product_translations` (
 --
 
 INSERT INTO `product_translations` (`id`, `product_id`, `name`, `unit`, `description`, `lang`, `created_at`, `updated_at`) VALUES
-(3, 4, 'Shirt2', 'pc', NULL, 'en', '2021-03-02 02:35:26', '2021-03-02 02:35:26'),
-(4, 5, 'Shirt3', 'pc', NULL, 'en', '2021-03-02 02:36:15', '2021-03-02 02:36:15');
+(1, 1, 'Coffee', 'KG', '<p>Amacianno Cafe</p>', 'en', '2021-01-02 00:22:06', '2021-01-02 00:33:45'),
+(2, 3, 'Watch', 'KG', '<p style=\"text-align: left;\">This luxury watches are for you guys.</p>', 'en', '2021-01-02 05:34:29', '2021-01-02 05:34:29'),
+(3, 4, 'Cake', 'KG', '<p>This is cafe</p>', 'en', '2021-01-03 01:22:14', '2021-01-03 01:22:14'),
+(4, 5, 'Pizza', 'KG', '<p>Pizza is one of the best food</p>', 'en', '2021-01-04 19:04:24', '2021-01-04 19:04:24'),
+(5, 6, 'Shirt', 'KG', NULL, 'en', '2021-01-10 07:46:29', '2021-01-10 07:46:29'),
+(6, 7, 'Shirtttty', 'KG', NULL, 'mm', '2021-01-11 07:03:42', '2021-01-11 07:03:42'),
+(7, 7, 'Shirtttty', 'KG', NULL, 'en', '2021-01-11 07:05:42', '2021-01-11 07:05:42');
 
 -- --------------------------------------------------------
 
@@ -1754,7 +1775,8 @@ CREATE TABLE `searches` (
 
 INSERT INTO `searches` (`id`, `query`, `count`, `created_at`, `updated_at`) VALUES
 (2, 'dcs', 1, '2020-03-08 00:29:09', '2020-03-08 00:29:09'),
-(3, 'das', 3, '2020-03-08 00:29:15', '2020-03-08 00:29:50');
+(3, 'das', 3, '2020-03-08 00:29:15', '2020-03-08 00:29:50'),
+(4, 'coffee', 1, '2021-01-02 00:30:36', '2021-01-02 00:30:36');
 
 -- --------------------------------------------------------
 
@@ -1783,7 +1805,9 @@ CREATE TABLE `sellers` (
 --
 
 INSERT INTO `sellers` (`id`, `user_id`, `verification_status`, `verification_info`, `cash_on_delivery_status`, `admin_to_pay`, `bank_name`, `bank_acc_name`, `bank_acc_no`, `bank_routing_no`, `bank_payment_status`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, '[{\"type\":\"text\",\"label\":\"Name\",\"value\":\"Mr. Seller\"},{\"type\":\"select\",\"label\":\"Marital Status\",\"value\":\"Married\"},{\"type\":\"multi_select\",\"label\":\"Company\",\"value\":\"[\\\"Company\\\"]\"},{\"type\":\"select\",\"label\":\"Gender\",\"value\":\"Male\"},{\"type\":\"file\",\"label\":\"Image\",\"value\":\"uploads\\/verification_form\\/CRWqFifcbKqibNzllBhEyUSkV6m1viknGXMEhtiW.png\"}]', 1, 78.40, NULL, NULL, NULL, NULL, 0, '2018-10-07 04:42:57', '2020-01-26 04:21:11');
+(1, 3, 1, '[{\"type\":\"text\",\"label\":\"Name\",\"value\":\"Mr. Seller\"},{\"type\":\"select\",\"label\":\"Marital Status\",\"value\":\"Married\"},{\"type\":\"multi_select\",\"label\":\"Company\",\"value\":\"[\\\"Company\\\"]\"},{\"type\":\"select\",\"label\":\"Gender\",\"value\":\"Male\"},{\"type\":\"file\",\"label\":\"Image\",\"value\":\"uploads\\/verification_form\\/CRWqFifcbKqibNzllBhEyUSkV6m1viknGXMEhtiW.png\"}]', 1, 78.40, NULL, NULL, NULL, NULL, 0, '2018-10-07 04:42:57', '2021-01-05 03:08:27'),
+(2, 8, 1, NULL, 1, 0.00, NULL, NULL, NULL, NULL, 0, '2021-01-02 00:20:17', '2021-01-02 05:22:03'),
+(3, 12, 0, NULL, 0, 0.00, NULL, NULL, NULL, NULL, 0, '2021-01-05 03:30:41', '2021-01-05 10:25:26');
 
 -- --------------------------------------------------------
 
@@ -1857,7 +1881,9 @@ CREATE TABLE `shops` (
 --
 
 INSERT INTO `shops` (`id`, `user_id`, `name`, `logo`, `sliders`, `address`, `facebook`, `google`, `twitter`, `youtube`, `slug`, `meta_title`, `meta_description`, `pick_up_point_id`, `shipping_cost`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Demo Seller Shop', NULL, NULL, 'House : Demo, Road : Demo, Section : Demo', 'www.facebook.com', 'www.google.com', 'www.twitter.com', 'www.youtube.com', 'Demo-Seller-Shop-1', 'Demo Seller Shop Title', 'Demo description', NULL, 0.00, '2018-11-27 10:23:13', '2019-08-06 06:43:16');
+(1, 3, 'Demo Seller Shop', NULL, NULL, 'House : Demo, Road : Demo, Section : Demo', 'www.facebook.com', 'www.google.com', 'www.twitter.com', 'www.youtube.com', 'Demo-Seller-Shop-1', 'Demo Seller Shop Title', 'Demo description', NULL, 0.00, '2018-11-27 10:23:13', '2019-08-06 06:43:16'),
+(2, 8, 'Coffee', NULL, NULL, 'Yangon', NULL, NULL, NULL, NULL, 'Coffee-', NULL, NULL, NULL, 0.00, '2021-01-02 00:20:17', '2021-01-02 00:20:17'),
+(3, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'demo-shop-12', NULL, NULL, NULL, 0.00, '2021-01-05 03:30:41', '2021-01-05 03:30:41');
 
 -- --------------------------------------------------------
 
@@ -1895,6 +1921,13 @@ CREATE TABLE `staff` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`) VALUES
+(1, 10, 2, '2021-01-02 00:25:50', '2021-01-02 00:25:50');
 
 -- --------------------------------------------------------
 
@@ -1952,22 +1985,12 @@ CREATE TABLE `ticket_replies` (
 --
 
 CREATE TABLE `townships` (
-  `id` int(11) NOT NULL,
+  `id` int(10) NOT NULL,
   `name` varchar(225) NOT NULL,
-  `delivery_price` decimal(50,0) NOT NULL,
+  `delivery_price` decimal(10,0) NOT NULL,
   `created_at` date DEFAULT NULL,
   `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `townships`
---
-
-INSERT INTO `townships` (`id`, `name`, `delivery_price`, `created_at`, `updated_at`) VALUES
-(2, 'Kamaryut', '2000', '2021-03-12', '2021-06-01'),
-(3, 'Yangon', '2000', '2021-03-12', '2021-03-12'),
-(12, 'Thingunkyun', '2000', '2021-03-14', '2021-03-14'),
-(13, 'Hlaing', '1000', '2021-03-17', '2021-03-17');
 
 -- --------------------------------------------------------
 
@@ -3095,52 +3118,209 @@ INSERT INTO `translations` (`id`, `lang`, `lang_key`, `lang_value`, `created_at`
 (1380, 'en', 'Zip File', 'Zip File', '2020-11-17 06:58:45', '2020-11-17 06:58:45'),
 (1381, 'en', 'Install', 'Install', '2020-11-17 06:58:45', '2020-11-17 06:58:45'),
 (1382, 'en', 'This version is not capable of installing Addons, Please update.', 'This version is not capable of installing Addons, Please update.', '2020-11-17 06:59:11', '2020-11-17 06:59:11'),
-(1383, 'en', 'Use Phone Instead', 'Use Phone Instead', '2021-03-02 02:30:54', '2021-03-02 02:30:54'),
-(1384, 'en', 'Registration successfull.', 'Registration successfull.', '2021-03-02 02:31:09', '2021-03-02 02:31:09'),
-(1385, 'en', 'Order', 'Order', '2021-03-02 02:31:41', '2021-03-02 02:31:41'),
-(1386, 'en', 'Search in menu', 'Search in menu', '2021-03-02 02:31:41', '2021-03-02 02:31:41'),
-(1387, 'en', 'System', 'System', '2021-03-02 02:31:42', '2021-03-02 02:31:42'),
-(1388, 'en', 'Server status', 'Server status', '2021-03-02 02:31:42', '2021-03-02 02:31:42'),
-(1389, 'en', 'Nothing Found', 'Nothing Found', '2021-03-02 02:31:42', '2021-03-02 02:31:42'),
-(1390, 'en', 'This is used for search. Input those words by which cutomer can find this product.', 'This is used for search. Input those words by which cutomer can find this product.', '2021-03-02 02:31:50', '2021-03-02 02:31:50'),
-(1391, 'en', 'These images are visible in product details page gallery. Use 600x600 sizes images.', 'These images are visible in product details page gallery. Use 600x600 sizes images.', '2021-03-02 02:31:50', '2021-03-02 02:31:50'),
-(1392, 'en', 'This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.', 'This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.', '2021-03-02 02:31:50', '2021-03-02 02:31:50'),
-(1393, 'en', 'Use proper link without extra parameter. Don\'t use short share link/embeded iframe code.', 'Use proper link without extra parameter. Don\'t use short share link/embeded iframe code.', '2021-03-02 02:31:50', '2021-03-02 02:31:50'),
-(1394, 'en', 'Save Product', 'Save Product', '2021-03-02 02:31:50', '2021-03-02 02:31:50'),
-(1395, 'en', 'Product has been inserted successfully', 'Product has been inserted successfully', '2021-03-02 02:33:07', '2021-03-02 02:33:07'),
-(1396, 'en', 'Product has been duplicated successfully', 'Product has been duplicated successfully', '2021-03-02 02:33:18', '2021-03-02 02:33:18'),
-(1397, 'en', 'Translatable', 'Translatable', '2021-03-02 02:33:27', '2021-03-02 02:33:27'),
-(1398, 'en', 'Something went wrong!', 'Something went wrong!', '2021-03-02 02:42:38', '2021-03-02 02:42:38'),
-(1399, 'en', 'Sorry for the inconvenience, but we\'re working on it.', 'Sorry for the inconvenience, but we\'re working on it.', '2021-03-02 02:42:38', '2021-03-02 02:42:38'),
-(1400, 'en', 'Error code', 'Error code', '2021-03-02 02:42:38', '2021-03-02 02:42:38'),
-(1401, 'en', 'Filter By Date', 'Filter By Date', '2021-03-02 02:46:54', '2021-03-02 02:46:54'),
-(1402, 'en', 'Your order has been placed successfully', 'Your order has been placed successfully', '2021-03-02 02:49:02', '2021-03-02 02:49:02'),
-(1403, 'en', 'Product No', 'Product No', '2021-03-02 02:49:48', '2021-03-02 02:49:48'),
-(1404, 'en', 'Number Of Sales', 'Number Of Sales', '2021-03-02 02:49:48', '2021-03-02 02:49:48'),
-(1405, 'en', 'Township', 'Township', '2021-03-12 08:27:02', '2021-03-12 08:27:02'),
-(1406, 'en', 'View Township', 'View Township', '2021-03-12 08:30:24', '2021-03-12 08:30:24'),
-(1407, 'en', 'Hlaing', 'Hlaing', '2021-03-12 22:13:18', '2021-03-12 22:13:18'),
-(1408, 'en', 'Delivery Price', 'Delivery Price', '2021-03-17 02:16:25', '2021-03-17 02:16:25'),
-(1409, 'en', 'All Attributes', 'All Attributes', '2021-03-19 00:47:07', '2021-03-19 00:47:07'),
-(1410, 'en', 'Add New Attribute', 'Add New Attribute', '2021-03-19 00:47:08', '2021-03-19 00:47:08'),
-(1411, 'en', 'Add New Brand', 'Add New Brand', '2021-03-19 00:47:12', '2021-03-19 00:47:12'),
-(1412, 'en', '120x80', '120x80', '2021-03-19 00:47:12', '2021-03-19 00:47:12'),
-(1413, 'en', 'Parent Category', 'Parent Category', '2021-03-19 00:47:16', '2021-03-19 00:47:16'),
-(1414, 'en', 'Category Information', 'Category Information', '2021-03-19 00:48:09', '2021-03-19 00:48:09'),
-(1415, 'en', 'No Parent', 'No Parent', '2021-03-19 00:48:09', '2021-03-19 00:48:09'),
-(1416, 'en', 'Physical', 'Physical', '2021-03-19 00:48:09', '2021-03-19 00:48:09'),
-(1417, 'en', 'Digital', 'Digital', '2021-03-19 00:48:09', '2021-03-19 00:48:09'),
-(1418, 'en', '200x200', '200x200', '2021-03-19 00:48:09', '2021-03-19 00:48:09'),
-(1419, 'en', '32x32', '32x32', '2021-03-19 00:48:09', '2021-03-19 00:48:09'),
-(1420, 'en', 'All Customers', 'All Customers', '2021-03-19 02:43:50', '2021-03-19 02:43:50'),
-(1421, 'en', 'Type email or name & Enter', 'Type email or name & Enter', '2021-03-19 02:43:50', '2021-03-19 02:43:50'),
-(1422, 'en', 'Package', 'Package', '2021-03-19 02:43:50', '2021-03-19 02:43:50'),
-(1423, 'en', 'Wallet Balance', 'Wallet Balance', '2021-03-19 02:43:50', '2021-03-19 02:43:50'),
-(1424, 'en', 'Log in as this Customer', 'Log in as this Customer', '2021-03-19 02:43:50', '2021-03-19 02:43:50'),
-(1425, 'en', 'Ban this Customer', 'Ban this Customer', '2021-03-19 02:43:51', '2021-03-19 02:43:51'),
-(1426, 'en', 'Do you really want to ban this Customer?', 'Do you really want to ban this Customer?', '2021-03-19 02:43:51', '2021-03-19 02:43:51'),
-(1427, 'en', 'Proceed!', 'Proceed!', '2021-03-19 02:43:51', '2021-03-19 02:43:51'),
-(1428, 'en', 'Do you really want to unban this Customer?', 'Do you really want to unban this Customer?', '2021-03-19 02:43:51', '2021-03-19 02:43:51');
+(1386, 'en', 'Something went wrong!', 'Something went wrong!', '2021-01-01 23:38:34', '2021-01-01 23:38:34'),
+(1387, 'en', 'Sorry for the inconvenience, but we\'re working on it.', 'Sorry for the inconvenience, but we\'re working on it.', '2021-01-01 23:38:35', '2021-01-01 23:38:35'),
+(1388, 'en', 'Error code', 'Error code', '2021-01-01 23:38:35', '2021-01-01 23:38:35'),
+(1389, 'en', 'Order', 'Order', '2021-01-02 00:18:07', '2021-01-02 00:18:07'),
+(1390, 'en', 'Search in menu', 'Search in menu', '2021-01-02 00:18:09', '2021-01-02 00:18:09'),
+(1391, 'en', 'System', 'System', '2021-01-02 00:18:10', '2021-01-02 00:18:10'),
+(1392, 'en', 'Server status', 'Server status', '2021-01-02 00:18:10', '2021-01-02 00:18:10'),
+(1393, 'en', 'Nothing Found', 'Nothing Found', '2021-01-02 00:18:11', '2021-01-02 00:18:11'),
+(1394, 'en', 'Your Shop has been created successfully!', 'Your Shop has been created successfully!', '2021-01-02 00:20:17', '2021-01-02 00:20:17'),
+(1395, 'en', 'Shop Logo', 'Shop Logo', '2021-01-02 00:20:18', '2021-01-02 00:20:18'),
+(1396, 'en', 'Shop Address', 'Shop Address', '2021-01-02 00:20:18', '2021-01-02 00:20:18'),
+(1397, 'en', 'Banner Settings', 'Banner Settings', '2021-01-02 00:20:18', '2021-01-02 00:20:18'),
+(1398, 'en', 'Banners', 'Banners', '2021-01-02 00:20:18', '2021-01-02 00:20:18'),
+(1399, 'en', 'We had to limit height to maintian consistancy. In some device both side of the banner might be cropped for height limitation.', 'We had to limit height to maintian consistancy. In some device both side of the banner might be cropped for height limitation.', '2021-01-02 00:20:18', '2021-01-02 00:20:18'),
+(1400, 'en', 'Insert link with https ', 'Insert link with https ', '2021-01-02 00:20:18', '2021-01-02 00:20:18'),
+(1401, 'en', 'Verify Now', 'Verify Now', '2021-01-02 00:20:38', '2021-01-02 00:20:38'),
+(1402, 'en', 'Save Product', 'Save Product', '2021-01-02 00:20:46', '2021-01-02 00:20:46'),
+(1403, 'en', 'Product has been inserted successfully', 'Product has been inserted successfully', '2021-01-02 00:22:06', '2021-01-02 00:22:06'),
+(1404, 'en', 'Use Phone Instead', 'Use Phone Instead', '2021-01-02 00:22:59', '2021-01-02 00:22:59'),
+(1405, 'en', 'Translatable', 'Translatable', '2021-01-02 00:24:09', '2021-01-02 00:24:09'),
+(1406, 'en', 'This is used for search. Input those words by which cutomer can find this product.', 'This is used for search. Input those words by which cutomer can find this product.', '2021-01-02 00:24:46', '2021-01-02 00:24:46'),
+(1407, 'en', 'These images are visible in product details page gallery. Use 600x600 sizes images.', 'These images are visible in product details page gallery. Use 600x600 sizes images.', '2021-01-02 00:24:46', '2021-01-02 00:24:46'),
+(1408, 'en', 'This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.', 'This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.', '2021-01-02 00:24:46', '2021-01-02 00:24:46'),
+(1409, 'en', 'Use proper link without extra parameter. Don\'t use short share link/embeded iframe code.', 'Use proper link without extra parameter. Don\'t use short share link/embeded iframe code.', '2021-01-02 00:24:46', '2021-01-02 00:24:46'),
+(1410, 'en', 'All Customers', 'All Customers', '2021-01-02 00:24:52', '2021-01-02 00:24:52'),
+(1411, 'en', 'Type email or name & Enter', 'Type email or name & Enter', '2021-01-02 00:24:53', '2021-01-02 00:24:53'),
+(1412, 'en', 'Package', 'Package', '2021-01-02 00:24:53', '2021-01-02 00:24:53'),
+(1413, 'en', 'Wallet Balance', 'Wallet Balance', '2021-01-02 00:24:53', '2021-01-02 00:24:53'),
+(1414, 'en', 'Do you really want to ban this Customer?', 'Do you really want to ban this Customer?', '2021-01-02 00:24:53', '2021-01-02 00:24:53'),
+(1415, 'en', 'Proceed!', 'Proceed!', '2021-01-02 00:24:53', '2021-01-02 00:24:53'),
+(1416, 'en', 'Do you really want to unban this Customer?', 'Do you really want to unban this Customer?', '2021-01-02 00:24:53', '2021-01-02 00:24:53'),
+(1417, 'en', 'Filter by date', 'Filter by date', '2021-01-02 00:25:00', '2021-01-02 00:25:00'),
+(1418, 'en', 'Staff Information', 'Staff Information', '2021-01-02 00:25:29', '2021-01-02 00:25:29'),
+(1419, 'en', 'Staff has been inserted successfully', 'Staff has been inserted successfully', '2021-01-02 00:25:50', '2021-01-02 00:25:50'),
+(1420, 'en', 'Parent Category', 'Parent Category', '2021-01-02 00:27:58', '2021-01-02 00:27:58'),
+(1421, 'en', 'Category Information', 'Category Information', '2021-01-02 00:28:04', '2021-01-02 00:28:04'),
+(1422, 'en', 'No Parent', 'No Parent', '2021-01-02 00:28:04', '2021-01-02 00:28:04'),
+(1423, 'en', 'Physical', 'Physical', '2021-01-02 00:28:05', '2021-01-02 00:28:05'),
+(1424, 'en', 'Digital', 'Digital', '2021-01-02 00:28:05', '2021-01-02 00:28:05'),
+(1425, 'en', '200x200', '200x200', '2021-01-02 00:28:05', '2021-01-02 00:28:05'),
+(1426, 'en', '32x32', '32x32', '2021-01-02 00:28:05', '2021-01-02 00:28:05'),
+(1427, 'en', 'Category has been updated successfully', 'Category has been updated successfully', '2021-01-02 00:28:30', '2021-01-02 00:28:30'),
+(1428, 'en', 'Add New Seller', 'Add New Seller', '2021-01-02 00:31:21', '2021-01-02 00:31:21'),
+(1429, 'en', 'Filter by Approval', 'Filter by Approval', '2021-01-02 00:31:21', '2021-01-02 00:31:21'),
+(1430, 'en', 'Non-Approved', 'Non-Approved', '2021-01-02 00:31:21', '2021-01-02 00:31:21'),
+(1431, 'en', 'Type name or email & Enter', 'Type name or email & Enter', '2021-01-02 00:31:21', '2021-01-02 00:31:21'),
+(1432, 'en', 'Due to seller', 'Due to seller', '2021-01-02 00:31:21', '2021-01-02 00:31:21'),
+(1433, 'en', 'Log in as this Seller', 'Log in as this Seller', '2021-01-02 00:31:21', '2021-01-02 00:31:21'),
+(1434, 'en', 'Go to Payment', 'Go to Payment', '2021-01-02 00:31:22', '2021-01-02 00:31:22'),
+(1435, 'en', 'Ban this seller', 'Ban this seller', '2021-01-02 00:31:22', '2021-01-02 00:31:22'),
+(1436, 'en', 'Do you really want to ban this seller?', 'Do you really want to ban this seller?', '2021-01-02 00:31:22', '2021-01-02 00:31:22'),
+(1437, 'en', 'Approved sellers updated successfully', 'Approved sellers updated successfully', '2021-01-02 00:31:22', '2021-01-02 00:31:22'),
+(1438, 'en', 'Edit Seller Information', 'Edit Seller Information', '2021-01-02 00:31:52', '2021-01-02 00:31:52'),
+(1439, 'en', 'Seller Information', 'Seller Information', '2021-01-02 00:31:52', '2021-01-02 00:31:52'),
+(1440, 'en', 'Product Image', 'Product Image', '2021-01-02 00:34:15', '2021-01-02 00:34:15'),
+(1441, 'en', 'Step 1', 'Step 1', '2021-01-02 00:44:10', '2021-01-02 00:44:10'),
+(1442, 'en', 'Download the skeleton file and fill it with proper data', 'Download the skeleton file and fill it with proper data', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1443, 'en', 'You can download the example file to understand how the data must be filled', 'You can download the example file to understand how the data must be filled', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1444, 'en', 'Once you have downloaded and filled the skeleton file, upload it in the form below and submit', 'Once you have downloaded and filled the skeleton file, upload it in the form below and submit', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1445, 'en', 'After uploading products you need to edit them and set product\'s images and choices', 'After uploading products you need to edit them and set product\'s images and choices', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1446, 'en', 'Step 2', 'Step 2', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1447, 'en', 'Category and Brand should be in numerical id', 'Category and Brand should be in numerical id', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1448, 'en', 'You can download the pdf to get Category and Brand id', 'You can download the pdf to get Category and Brand id', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1449, 'en', 'Upload Product File', 'Upload Product File', '2021-01-02 00:44:11', '2021-01-02 00:44:11'),
+(1450, 'en', 'Add New Brand', 'Add New Brand', '2021-01-02 00:44:34', '2021-01-02 00:44:34'),
+(1451, 'en', '120x80', '120x80', '2021-01-02 00:44:35', '2021-01-02 00:44:35'),
+(1452, 'en', 'Brand Information', 'Brand Information', '2021-01-02 00:44:40', '2021-01-02 00:44:40'),
+(1453, 'en', 'Brand has been updated successfully', 'Brand has been updated successfully', '2021-01-02 00:44:50', '2021-01-02 00:44:50'),
+(1454, 'en', 'Please add shipping address', 'Please add shipping address', '2021-01-02 05:24:54', '2021-01-02 05:24:54'),
+(1455, 'en', 'Your order has been placed successfully', 'Your order has been placed successfully', '2021-01-02 05:26:16', '2021-01-02 05:26:16'),
+(1456, 'en', 'No payment history available for this seller', 'No payment history available for this seller', '2021-01-02 05:27:33', '2021-01-02 05:27:33'),
+(1457, 'en', 'Seller Payments', 'Seller Payments', '2021-01-02 05:27:48', '2021-01-02 05:27:48'),
+(1458, 'en', 'Seller', 'Seller', '2021-01-02 05:27:48', '2021-01-02 05:27:48'),
+(1459, 'en', 'Payment Details', 'Payment Details', '2021-01-02 05:27:48', '2021-01-02 05:27:48'),
+(1460, 'en', 'Seller Withdraw Request', 'Seller Withdraw Request', '2021-01-02 05:27:51', '2021-01-02 05:27:51'),
+(1461, 'en', 'Total Amount to Pay', 'Total Amount to Pay', '2021-01-02 05:27:52', '2021-01-02 05:27:52'),
+(1462, 'en', 'Requested Amount', 'Requested Amount', '2021-01-02 05:27:52', '2021-01-02 05:27:52'),
+(1463, 'en', 'of seller product price will be deducted from seller earnings', 'of seller product price will be deducted from seller earnings', '2021-01-02 05:27:54', '2021-01-02 05:27:54'),
+(1464, 'en', 'This commission only works when Category Based Commission is turned off from Business Settings', 'This commission only works when Category Based Commission is turned off from Business Settings', '2021-01-02 05:27:54', '2021-01-02 05:27:54'),
+(1465, 'en', 'Commission doesn\'t work if seller package system add-on is activated', 'Commission doesn\'t work if seller package system add-on is activated', '2021-01-02 05:27:55', '2021-01-02 05:27:55'),
+(1466, 'en', 'Update your system', 'Update your system', '2021-01-02 05:29:12', '2021-01-02 05:29:12'),
+(1467, 'en', 'Current verion', 'Current verion', '2021-01-02 05:29:12', '2021-01-02 05:29:12'),
+(1468, 'en', 'Make sure your server has matched with all requirements.', 'Make sure your server has matched with all requirements.', '2021-01-02 05:29:12', '2021-01-02 05:29:12'),
+(1469, 'en', 'Check Here', 'Check Here', '2021-01-02 05:29:12', '2021-01-02 05:29:12'),
+(1470, 'en', 'Download latest version from codecanyon.', 'Download latest version from codecanyon.', '2021-01-02 05:29:13', '2021-01-02 05:29:13'),
+(1471, 'en', 'Extract downloaded zip. You will find updates.zip file in those extraced files.', 'Extract downloaded zip. You will find updates.zip file in those extraced files.', '2021-01-02 05:29:13', '2021-01-02 05:29:13'),
+(1472, 'en', 'Upload that zip file here and click update now.', 'Upload that zip file here and click update now.', '2021-01-02 05:29:13', '2021-01-02 05:29:13'),
+(1473, 'en', 'If you are using any addon make sure to update those addons after updating.', 'If you are using any addon make sure to update those addons after updating.', '2021-01-02 05:29:13', '2021-01-02 05:29:13'),
+(1474, 'en', 'Server information', 'Server information', '2021-01-02 05:29:18', '2021-01-02 05:29:18'),
+(1475, 'en', 'Current Version', 'Current Version', '2021-01-02 05:29:18', '2021-01-02 05:29:18'),
+(1476, 'en', 'Required Version', 'Required Version', '2021-01-02 05:29:18', '2021-01-02 05:29:18'),
+(1477, 'en', 'php.ini Config', 'php.ini Config', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1478, 'en', 'Config Name', 'Config Name', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1479, 'en', 'Current', 'Current', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1480, 'en', 'Recommended', 'Recommended', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1481, 'en', 'Extensions information', 'Extensions information', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1482, 'en', 'Extension Name', 'Extension Name', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1483, 'en', 'Filesystem Permissions', 'Filesystem Permissions', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1484, 'en', 'File or Folder', 'File or Folder', '2021-01-02 05:29:19', '2021-01-02 05:29:19'),
+(1485, 'en', 'Registration successfull.', 'Registration successfull.', '2021-01-02 05:39:02', '2021-01-02 05:39:02'),
+(1486, 'en', 'Shop Info', 'Shop Info', '2021-01-05 02:30:39', '2021-01-05 02:30:39'),
+(1487, 'en', 'About', 'About', '2021-01-05 03:07:56', '2021-01-05 03:07:56'),
+(1488, 'en', 'Payout Info', 'Payout Info', '2021-01-05 03:07:56', '2021-01-05 03:07:56'),
+(1489, 'en', 'Bank Acc Name', 'Bank Acc Name', '2021-01-05 03:07:56', '2021-01-05 03:07:56'),
+(1490, 'en', 'Bank Acc Number', 'Bank Acc Number', '2021-01-05 03:07:56', '2021-01-05 03:07:56'),
+(1491, 'en', 'Total Products', 'Total Products', '2021-01-05 03:07:57', '2021-01-05 03:07:57'),
+(1492, 'en', 'Total Sold Amount', 'Total Sold Amount', '2021-01-05 03:07:57', '2021-01-05 03:07:57'),
+(1493, 'en', 'Email already exists!', 'Email already exists!', '2021-01-05 03:29:57', '2021-01-05 03:29:57'),
+(1494, 'en', 'Seller has been inserted successfully', 'Seller has been inserted successfully', '2021-01-05 03:30:41', '2021-01-05 03:30:41'),
+(1495, 'en', 'Log in as this Customer', 'Log in as this Customer', '2021-01-08 07:41:30', '2021-01-08 07:41:30'),
+(1496, 'en', 'Ban this Customer', 'Ban this Customer', '2021-01-08 07:41:30', '2021-01-08 07:41:30'),
+(1497, 'en', 'Product Wish Report', 'Product Wish Report', '2021-01-08 07:42:21', '2021-01-08 07:42:21'),
+(1498, 'en', 'Product Wish Report', 'Product Wish Report', '2021-01-08 07:42:21', '2021-01-08 07:42:21'),
+(1499, 'en', 'Number of Wish', 'Number of Wish', '2021-01-08 07:42:21', '2021-01-08 07:42:21'),
+(1500, 'en', 'All Flash Deals', 'All Flash Deals', '2021-01-08 07:42:28', '2021-01-08 07:42:28'),
+(1501, 'en', 'Create New Flash Deal', 'Create New Flash Deal', '2021-01-08 07:42:28', '2021-01-08 07:42:28'),
+(1502, 'en', 'Emails', 'Emails', '2021-01-08 07:42:36', '2021-01-08 07:42:36'),
+(1503, 'en', 'Users', 'Users', '2021-01-08 07:42:36', '2021-01-08 07:42:36'),
+(1504, 'en', 'Newsletter subject', 'Newsletter subject', '2021-01-08 07:42:36', '2021-01-08 07:42:36'),
+(1505, 'en', 'Newsletter content', 'Newsletter content', '2021-01-08 07:42:36', '2021-01-08 07:42:36'),
+(1506, 'en', 'Support Desk', 'Support Desk', '2021-01-08 07:42:47', '2021-01-08 07:42:47'),
+(1507, 'en', 'Type ticket code & Enter', 'Type ticket code & Enter', '2021-01-08 07:42:47', '2021-01-08 07:42:47'),
+(1508, 'en', 'User', 'User', '2021-01-08 07:42:47', '2021-01-08 07:42:47'),
+(1509, 'en', 'Last reply', 'Last reply', '2021-01-08 07:42:47', '2021-01-08 07:42:47'),
+(1510, 'en', 'Cookies Agreement', 'Cookies Agreement', '2021-01-08 07:43:31', '2021-01-08 07:43:31'),
+(1511, 'en', 'Cookies Agreement Text', 'Cookies Agreement Text', '2021-01-08 07:43:31', '2021-01-08 07:43:31'),
+(1512, 'en', 'Show Cookies Agreement?', 'Show Cookies Agreement?', '2021-01-08 07:43:31', '2021-01-08 07:43:31'),
+(1513, 'en', 'HTTPS Activation', 'HTTPS Activation', '2021-01-08 07:44:09', '2021-01-08 07:44:09'),
+(1514, 'en', 'Maintenance Mode', 'Maintenance Mode', '2021-01-08 07:44:09', '2021-01-08 07:44:09'),
+(1515, 'en', 'Maintenance Mode Activation', 'Maintenance Mode Activation', '2021-01-08 07:44:09', '2021-01-08 07:44:09'),
+(1516, 'en', 'Classified Product Activate', 'Classified Product Activate', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1517, 'en', 'Classified Product', 'Classified Product', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1518, 'en', 'Business Related', 'Business Related', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1519, 'en', 'Vendor System Activation', 'Vendor System Activation', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1520, 'en', 'Wallet System Activation', 'Wallet System Activation', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1521, 'en', 'Coupon System Activation', 'Coupon System Activation', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1522, 'en', 'Pickup Point Activation', 'Pickup Point Activation', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1523, 'en', 'Conversation Activation', 'Conversation Activation', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1524, 'en', 'Guest Checkout Activation', 'Guest Checkout Activation', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1525, 'en', 'Category-based Commission', 'Category-based Commission', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1526, 'en', 'After activate this option Seller commision will be disabled and You need to set commission on each category otherwise Admin will not get any commision', 'After activate this option Seller commision will be disabled and You need to set commission on each category otherwise Admin will not get any commision', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1527, 'en', 'Set Commisssion Now', 'Set Commisssion Now', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1528, 'en', 'Email Verification', 'Email Verification', '2021-01-08 07:44:10', '2021-01-08 07:44:10'),
+(1529, 'en', 'Payment Related', 'Payment Related', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1530, 'en', 'Paypal Payment Activation', 'Paypal Payment Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1531, 'en', 'You need to configure Paypal correctly to enable this feature', 'You need to configure Paypal correctly to enable this feature', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1532, 'en', 'Stripe Payment Activation', 'Stripe Payment Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1533, 'en', 'SSlCommerz Activation', 'SSlCommerz Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1534, 'en', 'Instamojo Payment Activation', 'Instamojo Payment Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1535, 'en', 'You need to configure Instamojo Payment correctly to enable this feature', 'You need to configure Instamojo Payment correctly to enable this feature', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1536, 'en', 'Razor Pay Activation', 'Razor Pay Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1537, 'en', 'You need to configure Razor correctly to enable this feature', 'You need to configure Razor correctly to enable this feature', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1538, 'en', 'PayStack Activation', 'PayStack Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1539, 'en', 'You need to configure PayStack correctly to enable this feature', 'You need to configure PayStack correctly to enable this feature', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1540, 'en', 'VoguePay Activation', 'VoguePay Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1541, 'en', 'You need to configure VoguePay correctly to enable this feature', 'You need to configure VoguePay correctly to enable this feature', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1542, 'en', 'Payhere Activation', 'Payhere Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1543, 'en', 'Ngenius Activation', 'Ngenius Activation', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1544, 'en', 'You need to configure Ngenius correctly to enable this feature', 'You need to configure Ngenius correctly to enable this feature', '2021-01-08 07:44:11', '2021-01-08 07:44:11'),
+(1545, 'en', 'Cash Payment Activation', 'Cash Payment Activation', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1546, 'en', 'Social Media Login', 'Social Media Login', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1547, 'en', 'Facebook login', 'Facebook login', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1548, 'en', 'You need to configure Facebook Client correctly to enable this feature', 'You need to configure Facebook Client correctly to enable this feature', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1549, 'en', 'Google login', 'Google login', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1550, 'en', 'You need to configure Google Client correctly to enable this feature', 'You need to configure Google Client correctly to enable this feature', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1551, 'en', 'Twitter login', 'Twitter login', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1552, 'en', 'You need to configure Twitter Client correctly to enable this feature', 'You need to configure Twitter Client correctly to enable this feature', '2021-01-08 07:44:12', '2021-01-08 07:44:12'),
+(1553, 'en', '1. Flat rate shipping cost is applicable if Flat rate shipping is enabled.', '1. Flat rate shipping cost is applicable if Flat rate shipping is enabled.', '2021-01-08 07:44:45', '2021-01-08 07:44:45'),
+(1554, 'en', '1. Shipping cost for admin is applicable if Seller wise shipping cost is enabled.', '1. Shipping cost for admin is applicable if Seller wise shipping cost is enabled.', '2021-01-08 07:44:45', '2021-01-08 07:44:45'),
+(1555, 'en', 'All Attributes', 'All Attributes', '2021-01-08 07:46:37', '2021-01-08 07:46:37'),
+(1556, 'en', 'Add New Attribute', 'Add New Attribute', '2021-01-08 07:46:38', '2021-01-08 07:46:38'),
+(1557, 'en', 'Seller has been approved successfully', 'Seller has been approved successfully', '2021-01-10 07:59:27', '2021-01-10 07:59:27'),
+(1558, 'en', 'Product has been duplicated successfully', 'Product has been duplicated successfully', '2021-01-11 07:01:45', '2021-01-11 07:01:45'),
+(1559, 'en', 'Category has been inserted successfully', 'Category has been inserted successfully', '2021-01-11 07:33:04', '2021-01-11 07:33:04'),
+(1560, 'en', 'Sendmail', 'Sendmail', '2021-01-14 23:22:08', '2021-01-14 23:22:08'),
+(1561, 'en', 'Mailgun', 'Mailgun', '2021-01-14 23:22:08', '2021-01-14 23:22:08'),
+(1562, 'en', 'MAIL HOST', 'MAIL HOST', '2021-01-14 23:22:08', '2021-01-14 23:22:08'),
+(1563, 'en', 'MAIL PORT', 'MAIL PORT', '2021-01-14 23:22:08', '2021-01-14 23:22:08'),
+(1564, 'en', 'MAIL USERNAME', 'MAIL USERNAME', '2021-01-14 23:22:09', '2021-01-14 23:22:09'),
+(1565, 'en', 'MAIL PASSWORD', 'MAIL PASSWORD', '2021-01-14 23:22:09', '2021-01-14 23:22:09'),
+(1566, 'en', 'MAIL ENCRYPTION', 'MAIL ENCRYPTION', '2021-01-14 23:22:09', '2021-01-14 23:22:09'),
+(1567, 'en', 'MAIL FROM ADDRESS', 'MAIL FROM ADDRESS', '2021-01-14 23:22:09', '2021-01-14 23:22:09'),
+(1568, 'en', 'MAIL FROM NAME', 'MAIL FROM NAME', '2021-01-14 23:22:10', '2021-01-14 23:22:10'),
+(1569, 'en', 'MAILGUN DOMAIN', 'MAILGUN DOMAIN', '2021-01-14 23:22:10', '2021-01-14 23:22:10'),
+(1570, 'en', 'MAILGUN SECRET', 'MAILGUN SECRET', '2021-01-14 23:22:10', '2021-01-14 23:22:10'),
+(1571, 'en', 'Save Configuration', 'Save Configuration', '2021-01-14 23:22:10', '2021-01-14 23:22:10'),
+(1572, 'en', 'Test SMTP configuration', 'Test SMTP configuration', '2021-01-14 23:22:10', '2021-01-14 23:22:10'),
+(1573, 'en', 'Enter your email address', 'Enter your email address', '2021-01-14 23:22:10', '2021-01-14 23:22:10'),
+(1574, 'en', 'Send test email', 'Send test email', '2021-01-14 23:22:10', '2021-01-14 23:22:10'),
+(1575, 'en', 'Instruction', 'Instruction', '2021-01-14 23:22:11', '2021-01-14 23:22:11'),
+(1576, 'en', 'Please be carefull when you are configuring SMTP. For incorrect configuration you will get error at the time of order place, new registration, sending newsletter.', 'Please be carefull when you are configuring SMTP. For incorrect configuration you will get error at the time of order place, new registration, sending newsletter.', '2021-01-14 23:22:11', '2021-01-14 23:22:11'),
+(1577, 'en', 'For Non-SSL', 'For Non-SSL', '2021-01-14 23:22:11', '2021-01-14 23:22:11'),
+(1578, 'en', 'Select sendmail for Mail Driver if you face any issue after configuring smtp as Mail Driver ', 'Select sendmail for Mail Driver if you face any issue after configuring smtp as Mail Driver ', '2021-01-14 23:22:11', '2021-01-14 23:22:11'),
+(1579, 'en', 'Set Mail Host according to your server Mail Client Manual Settings', 'Set Mail Host according to your server Mail Client Manual Settings', '2021-01-14 23:22:11', '2021-01-14 23:22:11'),
+(1580, 'en', 'Set Mail port as 587', 'Set Mail port as 587', '2021-01-14 23:22:11', '2021-01-14 23:22:11'),
+(1581, 'en', 'Set Mail Encryption as ssl if you face issue with tls', 'Set Mail Encryption as ssl if you face issue with tls', '2021-01-14 23:22:11', '2021-01-14 23:22:11'),
+(1582, 'en', 'For SSL', 'For SSL', '2021-01-14 23:22:12', '2021-01-14 23:22:12'),
+(1583, 'en', 'Set Mail port as 465', 'Set Mail port as 465', '2021-01-14 23:22:12', '2021-01-14 23:22:12'),
+(1584, 'en', 'Set Mail Encryption as ssl', 'Set Mail Encryption as ssl', '2021-01-14 23:22:12', '2021-01-14 23:22:12'),
+(1585, 'en', 'Delivery', 'Delivery', '2021-01-20 01:13:44', '2021-01-20 01:13:44'),
+(1586, 'en', 'Delivery Shipping is for chosing township inorder to set the amount of shipping cost for delivery products', 'Delivery Shipping is for chosing township inorder to set the amount of shipping cost for delivery products', '2021-01-20 01:18:44', '2021-01-20 01:18:44'),
+(1587, 'en', 'Delivery Cost', 'Delivery Cost', '2021-01-20 01:44:30', '2021-01-20 01:44:30'),
+(1588, 'en', 'Sanpya Pharmacy', 'Sanpya Pharmacy', '2021-01-22 01:10:26', '2021-01-22 01:10:26');
 
 -- --------------------------------------------------------
 
@@ -3166,13 +3346,16 @@ CREATE TABLE `uploads` (
 --
 
 INSERT INTO `uploads` (`id`, `file_original_name`, `file_name`, `user_id`, `file_size`, `extension`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Idol20', 'uploads/all/gF9mNUqoiC1qsisPPLiAfXb3Jec3YDw7l8VD9dcD.jpg', 9, 19574, 'jpg', 'image', '2021-03-02 02:32:38', '2021-03-02 02:32:38', NULL),
-(2, 'Idol22', 'uploads/all/VOARs5h6XX8YJQdk0gsqjfxHeeZjqYfmY0XR8raz.jpg', 9, 25483, 'jpg', 'image', '2021-03-02 02:32:38', '2021-03-02 02:32:38', NULL),
-(3, 'Idol23', 'uploads/all/0HUqJn1GPw4muvRhR73Ky2wjazNze0r31cwsAixb.jpg', 9, 25495, 'jpg', 'image', '2021-03-02 02:32:38', '2021-03-02 02:32:38', NULL),
-(4, 'Idol21', 'uploads/all/SWjQbLCaTuWAXZOn3gCnAR0vbrfzXZXwlfBOI52U.jpg', 9, 42366, 'jpg', 'image', '2021-03-02 02:32:38', '2021-03-02 02:32:38', NULL),
-(5, 'Idol24', 'uploads/all/OlesEqCkQBUxR0s8yDY4wJMQqORUbYBZiydKOtza.jpg', 9, 21986, 'jpg', 'image', '2021-03-02 02:32:38', '2021-03-02 02:32:38', NULL),
-(6, 'Idol25', 'uploads/all/tmXvrJcWB09iZZISC8kln3LenChmYVo9LIvvgug3.jpg', 9, 23100, 'jpg', 'image', '2021-03-02 02:32:38', '2021-03-02 02:32:38', NULL),
-(7, 'Idol26', 'uploads/all/3dKXYsPYJ4etA3C3SZbGBY263JvL2n7VeBSqpfeh.jpg', 9, 22824, 'jpg', 'image', '2021-03-02 02:32:38', '2021-03-02 02:32:38', NULL);
+(1, 't1', 'uploads/all/EfyqZ2tSdOcnGCVVnCpxE3WlDj3dABqtKOQYNua4.png', 8, 36548, 'png', 'image', '2021-01-02 00:21:49', '2021-01-02 00:21:49', NULL),
+(2, 't1', 'uploads/all/JXqmOapLmvyFMjZLXUyLCc6oZcP6wPTbg0GslzDB.png', 9, 36548, 'png', 'image', '2021-01-02 00:24:24', '2021-01-02 00:24:24', NULL),
+(3, '1', 'uploads/all/Og2bhxqDvC2fCNmY7w1OOd9twec539SDYSqe1QMk.jpg', 9, 238663, 'jpg', 'image', '2021-01-02 00:29:19', '2021-01-02 00:29:19', NULL),
+(4, '7', 'uploads/all/O2q3d2QpY3ZrYoYoTmgGNKiEe7IxXdEnAllrmbPU.jpg', 9, 198714, 'jpg', 'image', '2021-01-02 00:29:50', '2021-01-02 00:29:50', NULL),
+(5, 'customer-3', 'uploads/all/4LHxYX9AjCd0bfnDSlRF9L81h7DmnO5qGbXYppUh.jpg', 8, 8577, 'jpg', 'image', '2021-01-02 00:37:41', '2021-01-02 00:37:41', NULL),
+(6, '10', 'uploads/all/S7cJmBA1zaawBKJrRxKZ7SM1lhy5rxihadMMgnDY.webp', 9, 30228, 'jpg', 'image', '2021-01-02 00:40:04', '2021-01-02 00:40:04', NULL),
+(7, 'c2', 'uploads/all/BP3KaQFb9xe2pm18Jgo9jQIEdyazrzhmKC6kHcN9.jpg', 3, 383832, 'jpg', 'image', '2021-01-02 05:31:33', '2021-01-02 05:31:33', NULL),
+(8, 'c1', 'uploads/all/OCEaA4nMkm83onljxSCOh1gm810ebOGSo3HOVdhX.jpg', 9, 349220, 'jpg', 'image', '2021-01-04 19:09:19', '2021-01-04 19:09:19', NULL),
+(9, 'mylogo', 'uploads/all/zD15a196HFpNTtbFFGE2FBaxJF4LSY4OT1hmxmqP.png', 9, 3204, 'png', 'image', '2021-01-05 01:14:30', '2021-01-05 01:14:30', NULL),
+(10, 'bg', 'uploads/all/TykzfokUd8e63cGkhP7eSeDYTyNPz9zCPPgUFyh2.jpg', 9, 322134, 'jpg', 'image', '2021-01-05 01:14:51', '2021-01-05 01:14:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -3182,40 +3365,21 @@ INSERT INTO `uploads` (`id`, `file_original_name`, `file_name`, `user_id`, `file
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `referred_by` int(11) DEFAULT NULL,
-  `provider_id` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'customer',
-  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `verification_code` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `new_email_verificiation_code` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `avatar` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `avatar_original` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `address` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `country` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `city` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `postal_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `balance` double(8,2) NOT NULL DEFAULT 0.00,
-  `banned` tinyint(4) NOT NULL DEFAULT 0,
-  `referral_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `customer_package_id` int(11) DEFAULT NULL,
-  `remaining_uploads` int(11) DEFAULT 0,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `referred_by`, `provider_id`, `user_type`, `name`, `email`, `email_verified_at`, `verification_code`, `new_email_verificiation_code`, `password`, `remember_token`, `avatar`, `avatar_original`, `address`, `country`, `city`, `postal_code`, `phone`, `balance`, `banned`, `referral_code`, `customer_package_id`, `remaining_uploads`, `created_at`, `updated_at`) VALUES
-(3, NULL, NULL, 'seller', 'Mr. Seller', 'seller@example.com', '2018-12-11 18:00:00', NULL, NULL, '$2y$10$eUKRlkmm2TAug75cfGQ4i.WoUbcJ2uVPqUlVkox.cv4CCyGEIMQEm', '1zoU4eQxnOC5yxRWLsTzMNBPpJuOvTk4g3GMUVYIrbGijiXHOfIlFq0wHrIn', 'https://lh3.googleusercontent.com/-7OnRtLyua5Q/AAAAAAAAAAI/AAAAAAAADRk/VqWKMl4f8CI/photo.jpg?sz=50', NULL, 'Demo address', 'US', 'Demo city', '1234', NULL, 0.00, 0, '3dLUoHsR1l', NULL, NULL, '2018-10-07 04:42:57', '2020-03-05 01:33:22'),
-(8, NULL, NULL, 'customer', 'Mr. Customer', 'customer@example.com', '2018-12-11 18:00:00', NULL, NULL, '$2y$10$eUKRlkmm2TAug75cfGQ4i.WoUbcJ2uVPqUlVkox.cv4CCyGEIMQEm', '6PTOG7AEe73KBZ922ffCoQGqj3DGeCVFl6L9V6wiOQVAJfPMrr6X292VzwDl', 'https://lh3.googleusercontent.com/-7OnRtLyua5Q/AAAAAAAAAAI/AAAAAAAADRk/VqWKMl4f8CI/photo.jpg?sz=50', NULL, 'Demo address', 'US', 'Demo city', '1234', NULL, 0.00, 0, '8zJTyXTlTT', NULL, NULL, '2018-10-07 04:42:57', '2020-03-03 04:26:11'),
-(9, NULL, NULL, 'admin', 'Thu Rein Htoon', 'thureinhtun2499@gmail.com', '2021-03-02 02:33:09', NULL, NULL, '$2y$10$ykPRoJhj5RBnlRCWL6ycYeEl3w51qNcJJYKKBladnlmuRooJ7GKrK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, NULL, NULL, 0, '2021-03-02 02:31:09', '2021-03-02 02:31:09');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Thu Rein Htoon', 'thureinhtun2499@gmail.com', '2021-02-26 10:32:30', '$2y$10$gfC3qontil6CyrOw.d98ouC4NUXWtdxbbLCIt.6x0mnozdP75zba6', NULL, '2021-02-26 10:38:30', '2021-02-26 10:38:30');
 
 -- --------------------------------------------------------
 
@@ -3685,7 +3849,7 @@ ALTER TABLE `addons`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `app_settings`
@@ -3721,13 +3885,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `brand_translations`
 --
 ALTER TABLE `brand_translations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `business_settings`
 --
 ALTER TABLE `business_settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -3739,13 +3903,13 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `category_translations`
 --
 ALTER TABLE `category_translations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `colors`
@@ -3781,13 +3945,13 @@ ALTER TABLE `coupon_usages`
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customer_packages`
@@ -3853,7 +4017,7 @@ ALTER TABLE `home_categories`
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `links`
@@ -3871,7 +4035,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -3889,13 +4053,13 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -3937,19 +4101,19 @@ ALTER TABLE `policies`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product_stocks`
 --
 ALTER TABLE `product_stocks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `product_translations`
 --
 ALTER TABLE `product_translations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -3973,13 +4137,13 @@ ALTER TABLE `role_translations`
 -- AUTO_INCREMENT for table `searches`
 --
 ALTER TABLE `searches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sellers`
 --
 ALTER TABLE `sellers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `seller_withdraw_requests`
@@ -3997,7 +4161,7 @@ ALTER TABLE `seo_settings`
 -- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sliders`
@@ -4009,7 +4173,7 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subscribers`
@@ -4033,25 +4197,25 @@ ALTER TABLE `ticket_replies`
 -- AUTO_INCREMENT for table `townships`
 --
 ALTER TABLE `townships`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1429;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1589;
 
 --
 -- AUTO_INCREMENT for table `uploads`
 --
 ALTER TABLE `uploads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wallets`

@@ -419,12 +419,12 @@
                     </td>
                 </tr>
 
-                {{-- <tr class="cart-shipping">
+                <tr class="cart-shipping">
                     <th>{{translate('Delivery Price')}}</th>
                     <td class="text-right">
                         <span class="font-italic">{{$delivery }}</span>
                     </td>
-                </tr> --}}
+                </tr>
 
                 <tr class="cart-shipping">
                     <th>{{translate('Total Shipping')}}</th>
@@ -443,7 +443,7 @@
                 @endif
 
                 @php
-                    $total = $subtotal+$tax+$shipping;
+                    $total = $subtotal+$tax+$shipping+$delivery;
                     if(Session::has('coupon_discount')){
                         $total -= Session::get('coupon_discount');
                     }
